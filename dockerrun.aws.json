@@ -4,6 +4,6 @@
   "Name": "vaidhyesh/sample-express-server"
  },
  "Ports" : [
-  {"ContainerPort" : "8080"}
+  {"ContainerPort" : "3000"}
  ]
 }
