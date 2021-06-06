@@ -4,15 +4,30 @@ services:
         image : mongo
         container_name: mongodb
         environment:
-            - PUID=1000
-            - PGID=1000
             - MONGO_INITDB_ROOT_USERNAME=root
             - MONGO_INITDB_ROOT_PASSWORD=password
         volumes:
             - mongodb:/data/db
         ports:
             - 27017:27017
-        restart: on-failure
+        restart: always
+    
+    mongo-express:
+        image: mongo-express
+        container_name: mongo-express
+        restart: always
+        ports:
+            - 8088:8081
+        environment:
+           - ME_CONFIG_MONGODB_SERVER=mongodb
+           - ME_CONFIG_MONGODB_PORT=27017
+           - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+           - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+           - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+           - ME_CONFIG_BASICAUTH_USERNAME=vaidhyesh
+           - ME_CONFIG_BASICAUTH_PASSWORD=vaidhyesh
+        depends_on:
+           - mongodb
 
     backend-app:
         image: vaidhyesh/sample-express-server:latest

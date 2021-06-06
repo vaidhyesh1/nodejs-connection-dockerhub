@@ -10,15 +10,27 @@ var dbRouter = require('./routes/database');
 var app = express();
 
 //Set up default mongoose connection
-var mongoDB = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.DB_SERVER}:${process.env.MONGO_PORT}/test`;
+var mongoDB = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.DB_SERVER}:${process.env.MONGO_PORT}/testing`;
 var mongoose = require('mongoose');
+let db = mongoose.connection;
 
-mongoose.connect(mongoDB, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-}).then(() => {
+let connectWithRetry = function () {
+  return mongoose.connect(mongoDB, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  });
+};
+
+connectWithRetry();
+
+db.on('error', () => {
+	setTimeout(() => {
+		console.log('DB connection failed. Will try connecting again after 5 seconds.');
+		connectWithRetry();
+  }, 5000);
+});
+
+db.on('connected', function () {
   console.log('Connection to mongo success!');
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
@@ -49,8 +61,7 @@ mongoose.connect(mongoDB, {
     res.status(err.status || 500);
     res.render('error');
   });
-}).catch((error) => {
-  console.error("Not able to connect to mongo. Therefore not exposing APIs")
+
 });
 
 module.exports = app;
