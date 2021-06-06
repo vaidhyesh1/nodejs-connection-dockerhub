@@ -1,10 +1,15 @@
 var express = require('express');
-var mongo = require('../mongo');
+var countModel = require('../countSchemaModel');
 var router = express.Router();
 
-router.get('/database', async(req, res, next) => {
-	var dbList = await mongo.getDatabases();
-	res.json(dbList);
+router.get('/', async(req, res, next) => {
+	var name = req.query.name;
+	var countVar = req.query.count
+	var count = countModel({name:name, count:countVar});
+	count.save(count, (err, res)=> {
+		if (err) return console.error(err);
+		console.log(res.name + " saved to count collection.");
+	})
 });
 
 module.exports = router;
