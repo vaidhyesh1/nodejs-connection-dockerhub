@@ -6,5 +6,5 @@ var countSchema = new Schema({
   count: Number
 });
 
-const model = mongoose.model('countModel', countSchema)
+const model = mongoose.model('count', countSchema)
 module.exports = model;
