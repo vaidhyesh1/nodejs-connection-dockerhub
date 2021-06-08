@@ -3,18 +3,26 @@
 Template for Express js server on docker. A Sample express js server packaged as a docker image.
 
 ## Installation
-Make sure to have installed docker in your machine
+Make sure to have installed docker in your machine and navigate to this folder structure before starting to use the application
 
-```bash
-docker pull vaidhyesh/sample-express-server:latest
-```
 
 ## Usage
-You can expose docker in your machine by running
+You can expose the app in your machine by running
 
 ```bash
-docker run -p <port-number>:3000 -d vaidhyesh/sample-express-server:latest
+cd build/
+docker compose up -d
 ```
+By default the application is exposed on port 8080
+
+## Stopping the application
+
+Use the command below in the build directory to stop the docker containers
+
+```bash
+docker compose down
+```
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
