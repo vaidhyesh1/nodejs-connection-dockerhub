@@ -1,4 +1,5 @@
 mongo <<EOF
+    use admin;
     var rootUser = '$MONGO_INITDB_ROOT_USERNAME';
     var rootPassword = '$MONGO_INITDB_ROOT_PASSWORD';
     var db = connect('mongodb://'+rootUser+':'+rootPassword+'@localhost:27017/admin');
