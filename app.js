@@ -35,6 +35,7 @@ db.on('connected', function () {
   console.log('Connection to mongo success!');
   // view engine setup
   //app.set('views', path.join(__dirname, 'views'));
+  app.engine('pug', require('pug').__express)
   app.set('view engine', 'pug');
 
   app.use(logger('dev'));
