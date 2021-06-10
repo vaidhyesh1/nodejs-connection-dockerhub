@@ -10,7 +10,7 @@ var dbRouter = require('./routes/database');
 var app = express();
 
 //Set up default mongoose connection
-var mongoDB = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.DB_SERVER}:${process.env.MONGO_PORT}/testing`;
+var mongoDB = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.DB_SERVER}:${process.env.MONGO_PORT}/${process.env.MONGO_DB_NAME}`;
 //var mongoDB = `mongodb://${process.env.DB_SERVER}:${process.env.MONGO_PORT}/testing`;
 var mongoose = require('mongoose');
 let db = mongoose.connection;
