@@ -13,7 +13,7 @@ You can expose the app in your machine by running
 cd build/
 docker compose up -d
 ```
-By default the application is exposed on port 8080
+By default the application is exposed on port 8080 and exposes two api endpoints: / and /database
 
 ## Stopping the application
 
